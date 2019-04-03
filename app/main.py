@@ -2,6 +2,7 @@ import json
 import os
 import random
 import bottle
+from nextMoveLogic import GameStatus
 
 from api import ping_response, start_response, move_response, end_response
 
@@ -39,14 +40,16 @@ def start():
             initialize your snake state here using the
             request's data if necessary.
     """
-    print(json.dumps(data))
+    print("GAME HAS STARTED")
 
-    color = "#001dff"
-    headType = "beluga"
-    tailType = "curled"
+    snakestyling = {
+    "color": "#001dff",
+    "headType": "beluga",
+    "tailType": "curled"
+    }
 
 
-    return start_response(color, headType, tailType)
+    return start_response(snakestyling['color'])
 
 
 @bottle.post('/move')
@@ -57,10 +60,11 @@ def move():
     TODO: Using the data from the endpoint request object, your
             snake AI must choose a direction to move in.
     """
-    print(json.dumps(data))
+    
 
     directions = ['up', 'down', 'left', 'right']
     random_direction = random.choice(directions)
+    AssessGameStatus.getBearings(data)
 
     return move_response(directions[2])
 
