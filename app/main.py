@@ -41,9 +41,12 @@ def start():
     """
     print(json.dumps(data))
 
-    color = "#00FF00"
+    color = "#001dff"
+    headType = "beluga"
+    tailType = "curled"
 
-    return start_response(color)
+
+    return start_response(color, headType, tailType)
 
 
 @bottle.post('/move')
@@ -57,9 +60,9 @@ def move():
     print(json.dumps(data))
 
     directions = ['up', 'down', 'left', 'right']
-    direction = random.choice(directions)
+    random_direction = random.choice(directions)
 
-    return move_response(direction)
+    return move_response(directions[2])
 
 
 @bottle.post('/end')
