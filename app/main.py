@@ -2,7 +2,7 @@ import json
 import os
 import random
 import bottle
-from nextMoveLogic import GameStatus
+from nextMoveLogic import Status, Assess, Action, Decision
 
 from api import ping_response, start_response, move_response, end_response
 
@@ -60,13 +60,9 @@ def move():
     TODO: Using the data from the endpoint request object, your
             snake AI must choose a direction to move in.
     """
-    
-
-    directions = ['up', 'down', 'left', 'right']
-    random_direction = random.choice(directions)
-    AssessGameStatus.getBearings(data)
-
-    return move_response(directions[2])
+       
+    move = Decision.chooseBestOption(data)
+    return move_response(move)
 
 
 @bottle.post('/end')
