@@ -18,7 +18,7 @@ class Status(object):
 	def getMyDirection(gamedata):
 		me = gamedata['you']		
 		my_position = me['body']
-		if Status.getMyLength == 1:
+		if Status.getMyLength(gamedata) == 1:
 			return 'none'
 		elif my_position[0]['x'] > my_position[1]['x']:
 			return 'right'
@@ -50,15 +50,16 @@ class Assess(object):
 	def wallProximity(gamedata):
 		head = Status.getHeadPosition(gamedata)
 		board_size  = Status.getBoardSize(gamedata)
-		if head['x'] == 0:
-			return True
-		elif head['y'] == 0:
-			return True
-		elif head['x'] == board_size['width']-1:
-			return True
-		elif head['y'] == board_size['height']-1:
-			return True
-		else: return False
+		direction = Status.getMyDirection(gamedata)
+		if head['x'] == 0 and direction == 'left':
+			return 'right'
+		elif head['y'] == 0 and direction == 'up':
+			return 'right'
+		elif head['x'] == board_size['width']-1 and direction =='right':
+			return 'right'
+		elif head['y'] == board_size['height']-1 and direction == 'down':
+			return 'right'
+		else: return 'false'
 		
 
 
@@ -92,9 +93,8 @@ class Action(object):
 class Decision(object):
 
 	def chooseBestOption(gamedata):		
-		print(Status.getHeadPosition(gamedata))
-		print(Assess.wallProximity(gamedata))
-		return 'down'
+		 return Assess.wallProximity(gamedata)
+		 
 
 
 

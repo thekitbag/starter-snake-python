@@ -60,8 +60,14 @@ def move():
     TODO: Using the data from the endpoint request object, your
             snake AI must choose a direction to move in.
     """
-       
-    move = Decision.chooseBestOption(data)
+    directions = ['left', 'right, up', 'down']
+    current_direction = Status.getMyDirection(data)
+    if current_direction == 'none':
+        print("XXX")
+        move = random.choice(directions)
+    elif Assess.wallProximity(data) == 'right':
+        move = 'right'
+    else: move = current_direction
     return move_response(move)
 
 
